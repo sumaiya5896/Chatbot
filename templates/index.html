@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+</head>
+<body>
+    <h1>Ask the AI Chatbot</h1>
+    <form action="/chat" method="post">
+        <input type="text" name="question" placeholder="Type your question here..." value="{{ question }}" required>
+        <button type="submit">Ask</button>
+    </form>
+    <br>
+    {% if question %}
+        <b>You:</b>
+        <p>{{ question }}</p>
+    {% endif %}
+    {% if answer %}
+        <b>AI:</b>
+        <p>{{ answer }}</p>
+    {% endif %}
+</body>
+</html>
