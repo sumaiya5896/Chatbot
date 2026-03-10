@@ -3,22 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot</title>
+    <title>Chat with Chatify</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        .Chat-Window {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message_user, .message_bot {
+            margin-bottom: 10px;
+        }
+        .message_user b {
+            color: #007BFF;
+        }
+        .message_bot b {
+            color: #28A745;
+        }
+        .input-box{
+            display: flex;
+            width:100%;
+            length: 255;
+            padding: 20px;
+            border-top:1px solid #ccc;
+            box-sizing:border-box
+        }
+        .input-box input {
+            flex-grow: 1;
+            width:100%;
+            length: 255;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .input-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .input-box button:hover {
+            background-color: #0056b3; 
+        }             
+    </style>
 </head>
 <body>
-    <h1>Ask the AI Chatbot</h1>
-    <form action="/chat" method="post">
-        <input type="text" name="question" placeholder="Type your question here..." value="{{ question }}" required>
-        <button type="submit">Ask</button>
-    </form>
-    <br>
-    {% if question %}
-        <b>You:</b>
-        <p>{{ question }}</p>
-    {% endif %}
-    {% if answer %}
-        <b>AI:</b>
-        <p>{{ answer }}</p>
-    {% endif %}
+<div class="container">
+    <div class ="sidebar">
+        <a href="/">Home</a>
+        <a href="/new">New Chat</a>
+        <div class="chat-list">
+            {% for chat in chats %}
+                <a href="/chat/{{ chat._id|string}}">{{ chat.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="Chat-Window">
+        <div class="chat-history">
+        {% if current_chat %}
+            {% for message in current_chat.messages %}
+                <div class="message_user">
+                    <b>You:</b>{{message.question}}
+                </div>
+                <div class="message_bot">
+                    <b>Chatify:</b>{{message.answer}}
+                </div>
+            {% endfor %}
+        {% else %}
+        <h2>Select or create a chat to start messaging!</h2>
+        {% endif %}
+        </div>
+        {% if current_chat %}
+        <div class="input-box">
+        <form action="/chat/{{current_chat._id}}" method="post" >
+            <input type="text" name="question" placeholder="Type your message here..." required>
+            <button type="submit">Send</button>
+        </form>
+        </div>
+        {% endif %} 
+    </div>
+</div>  
 </body>
 </html>
