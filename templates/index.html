@@ -105,7 +105,7 @@
                     <b>You:</b>{{message.question}}
                 </div>
                 <div class="message_bot">
-                    <b>Chatify:</b>{{message.answer}}
+                    <b>Chatify:</b><div style="white-space:pre-wrap;">{{message.answer|safe}}</div>
                 </div>
             {% endfor %}
         {% else %}
