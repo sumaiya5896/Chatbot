@@ -82,7 +82,34 @@
         }
         .input-box button:hover {
             background-color: #0056b3; 
-        }             
+        } 
+        .bot-response h1, .bot-response h2, .bot-response h3 {
+            margin: 10px ;
+            color:#2c3e50;
+        }  
+        .bot-response ul{
+            padding-left:20px;
+        } 
+        .bot-response li{
+            margin-bottom:5px;
+        } 
+        .bot-response strong{
+            color:#000;
+        }
+        .bot-response p{
+            margin:8px 0;
+        } 
+        h1{
+            text-align:center;
+            color:#030506;
+            margin-top:20 px;
+
+        } 
+        h4{
+            text-align:center;
+            color:#555;
+            margin-top:10px;
+        }      
     </style>
 </head>
 <body>
@@ -109,7 +136,8 @@
                 </div>
             {% endfor %}
         {% else %}
-        <h2>Select or create a chat to start messaging!</h2>
+        <h1>hey 👋! Let's get started</h1>
+        <h4>Turn your confusion into clarity!</h4>
         {% endif %}
         </div>
         {% if current_chat %}
